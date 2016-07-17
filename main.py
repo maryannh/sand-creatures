@@ -6,7 +6,7 @@
 # from modules.helpers import _interpolate
 
 from numpy import linspace
-from modules.paths import _single
+from modules.paths import get_displaced_single
 
 
 SIZE = 2000
@@ -16,8 +16,8 @@ BACK = [1,1,1,1]
 FRONT = [0,0,0,0.01]
 RED = [0,0,0,0.01]
 
-INUM = 500
-GRAINS = 1000
+INUM = 5000
+GRAINS = 100
 
 EDGE = 0.1
 
@@ -26,6 +26,8 @@ CREATURE_NUM = 8
 ORDERED = True
 
 GAMMA = 1.5
+
+NOISE = 0.02
 
 
 def make_creatures(sand):
@@ -41,7 +43,7 @@ def make_creatures(sand):
 
       xy = array((x, y), 'float')
       size = 0.04
-      creature = Creature(pnum, INUM, xy, size, ORDERED, _single)
+      creature = Creature(pnum, INUM, xy, size, ORDERED, get_displaced_single(NOISE))
       l1, l2 = creature.paths()
       sand.paint_strokes(l1, l2, GRAINS)
 
