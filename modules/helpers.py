@@ -7,7 +7,6 @@ from numpy import linspace
 from numpy import column_stack
 from numpy import sort
 
-from scipy.spatial import cKDTree as kdt
 from numpy import zeros
 from numpy import reshape
 from numpy import logical_not
