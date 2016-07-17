@@ -3,8 +3,10 @@
 from numpy import zeros
 from numpy.random import random
 
-from .helpers import _rnd_interpolate
-from .helpers import _interpolate
+from modules.helpers import _rnd_interpolate
+from modules.helpers import _interpolate
+
+from modules.helpers import random_points_in_circle
 
 ORDERED = True
 
@@ -32,7 +34,13 @@ class Creature(object):
 
   def _connected(self):
     pnum = self.pnum
-    rnd = self.xy + (1.0-2.0*random((2*pnum-1, 2)))*self.size
+    # rnd = self.xy + (1.0-2.0*random((2*pnum-1, 2)))*self.size
+    rnd = random_points_in_circle(
+        2*pnum-1,
+        self.xy[0],
+        self.xy[1],
+        self.size
+        )
     self.xy1 = rnd[:pnum,:]
     self.xy2 = zeros((pnum,2), 'float')
     self.xy2[0,:] = rnd[0,:]
