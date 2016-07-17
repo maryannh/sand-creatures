@@ -11,16 +11,21 @@ ORDERED = True
 class Creature(object):
   def __init__(
       self,
-      size,
       pnum,
-      inum
+      inum,
+      xy,
+      size,
+      ordered
       ):
     self.i = 0
-    self.size = size
     self.pnum = pnum
     self.inum = inum
+    self.xy = xy
+    self.size = size
 
-    rnd = 0.1 + random((2*pnum-1, 2))*0.8
+    self.ordered = ordered
+
+    rnd = xy + (1.0-2.0*random((2*pnum-1, 2)))*size
 
     self.xy1 = rnd[:pnum,:]
     self.xy2 = zeros((pnum,2), 'float')
@@ -29,11 +34,12 @@ class Creature(object):
     self.xy2[1:-1,:] = rnd[pnum:-1,:]
 
 
+
   def __iter__(self):
       return self
 
   def paths(self):
-    l1 = _rnd_interpolate(self.xy1, self.inum, ordered=True)
-    l2 = _rnd_interpolate(self.xy2, self.inum, ordered=True)
+    l1 = _rnd_interpolate(self.xy1, self.inum, ordered=self.ordered)
+    l2 = _rnd_interpolate(self.xy2, self.inum, ordered=self.ordered)
     return l1, l2
 

@@ -2,22 +2,38 @@
 # -*- coding: utf-8 -*-
 
 
-SIZE = 1024
+SIZE = 2000
 ONE = 1./SIZE
 
 BACK = [1,1,1,1]
-FRONT = [0,0,0,0.05]
+FRONT = [0,0,0,0.01]
 
-PNUM = 5
-INUM = 1000
+INUM = 3000
+GRAINS = 100
+
+EDGE = 0.1
+
+CREATURE_NUM = 10
+
+ORDERED = True
 
 
 def make_creatures(sand):
   from modules.creature import Creature
+  from numpy import array
+  from numpy.random import randint
+  from numpy import linspace
 
-  creature = Creature(SIZE, PNUM, INUM)
-  l1, l2 = creature.paths()
-  sand.paint_strokes(l1, l2, INUM)
+  for x in linspace(EDGE, 1.0-EDGE, CREATURE_NUM):
+    for y in linspace(EDGE, 1.0-EDGE, CREATURE_NUM):
+
+      pnum = randint(4,10)
+
+      xy = array((x, y), 'float')
+      size = 0.035
+      creature = Creature(pnum, INUM, xy, size, ordered=ORDERED)
+      l1, l2 = creature.paths()
+      sand.paint_strokes(l1, l2, GRAINS)
 
 
 def main():

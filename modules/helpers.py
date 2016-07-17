@@ -25,7 +25,7 @@ def _rnd_interpolate(xy, num_points, ordered=False):
     s=0
   )
   unew = random(num_points)
-  if sort:
+  if ordered:
     unew = sort(unew)
   out = splev(unew, tck)
   return column_stack(out)
