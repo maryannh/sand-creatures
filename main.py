@@ -16,8 +16,8 @@ BACK = [1,1,1,1]
 FRONT = [0,0,0,0.01]
 RED = [0,0,0,0.01]
 
-INUM = 5000
-GRAINS = 100
+INUM = 10000
+GRAINS = 30
 
 EDGE = 0.1
 
@@ -27,7 +27,7 @@ ORDERED = True
 
 GAMMA = 1.5
 
-NOISE = 0.02
+NOISE = 0.001
 
 
 def make_creatures(sand):
@@ -42,7 +42,7 @@ def make_creatures(sand):
       # pnum = randint(4,10)
 
       xy = array((x, y), 'float')
-      size = 0.04
+      size = 0.05
       creature = Creature(pnum, INUM, xy, size, ORDERED, get_displaced_single(NOISE))
       l1, l2 = creature.paths()
       sand.paint_strokes(l1, l2, GRAINS)

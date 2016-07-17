@@ -32,8 +32,7 @@ def get_displaced_single(noise):
 
     a = random(self.pnum)*TWOPI
     disp = column_stack((cos(a), sin(a)))*noise
-    rnd += disp
-    return rnd, rnd
+    return rnd, rnd+disp
   return f
 
 def get_connected():
