@@ -8,26 +8,22 @@
 from numpy import linspace
 from modules.paths import get_displaced_single
 
+BACK = [1,1,1,1]
+FRONT = [0,0,0,0.001]
 
 SIZE = 2500
 ONE = 1./SIZE
 
-BACK = [1,1,1,1]
-FRONT = [0,0,0,0.01]
-RED = [0,0,0,0.01]
-
-INUM = 5000
-GRAINS = 20
-
 EDGE = 0.1
 
-CREATURE_NUM = 15
+INUM = 60000
+GRAINS = 25
 
-ORDERED = True
+CREATURE_NUM = 15
+ORDERED = False
+NOISE = 0.0035
 
 GAMMA = 1.5
-
-NOISE = 0.0035
 
 
 def make_creatures(sand):
@@ -44,7 +40,7 @@ def make_creatures(sand):
 
       xy = array((x, y), 'float')
       size = 0.024
-      creature = Creature(pnum, INUM, xy, size, ORDERED, get_displaced_single(NOISE))
+      creature = Creature(pnum, INUM, xy, size, get_displaced_single(NOISE), ORDERED)
       l1, l2 = creature.paths()
       sand.paint_strokes(l1, l2, GRAINS)
 

@@ -10,8 +10,8 @@ class Creature(object):
       inum,
       xy,
       size,
-      ordered,
-      path_function
+      path_function,
+      ordered
       ):
     self.i = 0
     self.pnum = pnum
