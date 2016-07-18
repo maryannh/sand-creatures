@@ -2,11 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
-# from numpy.random import random
-# from modules.helpers import _interpolate
-
 from numpy import linspace
 from modules.paths import get_displaced_single
+from modules.paths import get_rnd_circ
 
 BACK = [1,1,1,1]
 FRONT = [0,0,0,0.0001]
@@ -22,7 +20,7 @@ GRAINS = 60
 CREATURE_NUM = 15
 ORDERED = True
 
-# NOISE = 0.0035
+NOISE = 0.005
 
 GAMMA = 1.5
 
@@ -38,11 +36,12 @@ def make_creatures(sand):
 
       # pnum = randint(4,10)
       pnum = 4+i
-      noise = 0.0030 + j*0.001
+      # noise = 0.0030 + j*0.001
 
       xy = array((x, y), 'float')
       size = 0.024
-      creature = Creature(pnum, INUM, xy, size, get_displaced_single(noise), ORDERED)
+      # creature = Creature(pnum, INUM, xy, size, get_displaced_single(NOISE), ORDERED)
+      creature = Creature(pnum, INUM, xy, size, get_rnd_circ(NOISE), ORDERED)
       l1, l2 = creature.paths()
       sand.paint_strokes(l1, l2, GRAINS)
 

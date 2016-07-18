@@ -2,12 +2,14 @@
 from numpy import zeros
 from numpy.random import random
 from numpy import column_stack
+from numpy import sort
 from numpy import cos
 from numpy import sin
 from numpy import pi
 from modules.helpers import random_points_in_circle
 
 TWOPI = 2*pi
+
 
 def get_single():
   def f(self):
@@ -20,6 +22,16 @@ def get_single():
     return rnd, rnd
   return f
 
+def get_rnd_circ(noise):
+  def f(self):
+    a = sort((random() + random(self.pnum))*TWOPI)
+    rnd = self.xy + column_stack((cos(a), sin(a)))*self.size
+
+    b = random(self.pnum)*TWOPI
+    rad = random(size=(self.pnum,1))
+    disp = column_stack((cos(b), sin(b)))*noise*rad
+    return rnd, rnd+disp
+  return f
 
 def get_displaced_single(noise):
   def f(self):
@@ -29,7 +41,6 @@ def get_displaced_single(noise):
         self.xy[1],
         self.size
         )
-
     a = random(self.pnum)*TWOPI
     rad = random(size=(self.pnum,1))
     disp = column_stack((cos(a), sin(a)))*noise*rad
