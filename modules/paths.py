@@ -31,7 +31,8 @@ def get_displaced_single(noise):
         )
 
     a = random(self.pnum)*TWOPI
-    disp = column_stack((cos(a), sin(a)))*noise
+    rad = random(size=(self.pnum,1))
+    disp = column_stack((cos(a), sin(a)))*noise*rad
     return rnd, rnd+disp
   return f
 
