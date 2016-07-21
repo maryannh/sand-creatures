@@ -4,7 +4,7 @@
 
 from numpy import linspace
 from modules.paths import get_displaced_single
-from modules.paths import get_rnd_circ
+# from modules.paths import get_rnd_circ
 
 BACK = [1,1,1,1]
 FRONT = [0,0,0,0.0001]
@@ -40,8 +40,8 @@ def make_creatures(sand):
 
       xy = array((x, y), 'float')
       size = 0.024
-      # creature = Creature(pnum, INUM, xy, size, get_displaced_single(NOISE), ORDERED)
-      creature = Creature(pnum, INUM, xy, size, get_rnd_circ(NOISE), ORDERED)
+      creature = Creature(pnum, INUM, xy, size, get_displaced_single(NOISE), ORDERED)
+      # creature = Creature(pnum, INUM, xy, size, get_rnd_circ(NOISE), ORDERED)
       l1, l2 = creature.paths()
       sand.paint_strokes(l1, l2, GRAINS)
 

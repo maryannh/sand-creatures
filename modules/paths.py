@@ -11,17 +11,6 @@ from modules.helpers import random_points_in_circle
 TWOPI = 2*pi
 
 
-def get_single():
-  def f(self):
-    rnd = random_points_in_circle(
-        self.pnum,
-        self.xy[0],
-        self.xy[1],
-        self.size
-        )
-    return rnd, rnd
-  return f
-
 def get_rnd_circ(noise):
   def f(self):
     a = sort((random() + random(self.pnum))*TWOPI)
