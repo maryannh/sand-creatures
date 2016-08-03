@@ -38,3 +38,33 @@ class Creature(object):
       l2 = _interpolate(self.xy2, self.inum)
     return l1, l2
 
+class MultiCreature(object):
+  def __init__(
+      self,
+      pnum,
+      inum,
+      steps,
+      xy,
+      size,
+      path_function
+      ):
+    self.i = 0
+    self.pnum = pnum
+    self.inum = inum
+    self.xy = xy
+    self.size = size
+    self.path_function = path_function
+    self.steps = steps
+
+    _paths =  path_function(self)
+    self._paths = []
+
+    for p in _paths:
+      self._paths.append(_rnd_interpolate(p, steps, ordered=True))
+
+  def paths(self):
+    from numpy import row_stack
+    for i in range(self.steps):
+      xy = row_stack([p[i,:] for p in self._paths])
+      yield _rnd_interpolate(xy, self.inum, ordered=True)
+

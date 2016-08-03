@@ -51,3 +51,25 @@ def get_connected():
     xy2[1:-1,:] = rnd[self.pnum:-1,:]
     return xy1, xy2
   return f
+
+def get_displaced_multi(noise, num_offsets):
+  from numpy import linspace
+
+  def f(self):
+    rnd = random_points_in_circle(
+        self.pnum,
+        self.xy[0],
+        self.xy[1],
+        self.size
+        )
+
+    columns = [rnd]
+
+    aa = random(self.pnum)*TWOPI
+    for s in linspace(noise/num_offsets, noise, num_offsets-1):
+      # rad = random(size=(self.pnum,1))
+      disp = column_stack((cos(aa), sin(aa)))*s
+      columns.append(rnd+disp)
+    return columns
+
+  return f
