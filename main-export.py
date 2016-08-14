@@ -14,7 +14,7 @@ ONE = 1./SIZE
 
 EDGE = 0.1
 
-INUM = 200
+INUM = 100
 
 CREATURE_NUM = 12
 ORDERED = True
@@ -29,7 +29,7 @@ def make_creatures(sand):
   from numpy import array
   from numpy import row_stack
   from numpy import arange
-  # from numpy.random import randint
+  from numpy.random import randint
 
   lines = []
   vertices = []
@@ -40,8 +40,8 @@ def make_creatures(sand):
   for i, y in enumerate(linspace(EDGE, 1.0-EDGE, CREATURE_NUM)):
     for j, x in enumerate(linspace(EDGE, 1.0-EDGE, CREATURE_NUM)):
 
-      # pnum = randint(4,10)
-      pnum = 4+i
+      pnum = randint(4,7)
+      # pnum = 4+i
       # noise = 0.0030 + j*0.001
 
       xy = array((x, y), 'float')
@@ -66,8 +66,6 @@ def make_creatures(sand):
 
       sand.paint_dots(l1)
       sand.paint_dots(l2)
-
-      print(len(l1))
 
   return row_stack(vertices), lines
 
