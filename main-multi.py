@@ -2,60 +2,40 @@
 # -*- coding: utf-8 -*-
 
 
-from numpy import linspace
-from modules.paths import get_displaced_multi
-
 BACK = [1,1,1,1]
 FRONT = [0,0,0,0.001]
 
-SIZE = 4000
+SIZE = 2000
 ONE = 1./SIZE
-
 EDGE = 0.1
 
-INUM = 10000
-STEPS = 50000
-
-CREATURE_NUM = 10
-
-NOISE = 0.25
-
 GAMMA = 1.6
+
+PATH_NUM = 12
+PATH_INTERPOLATE_NUM = 50
+PATH_SIZE = 0.4
+
+TWIG_NUM = 4
+TWIG_INTERPOLATE_NUM = 10000
+TWIG_SIZE = 0.03
+
+GRAINS = 10000
 
 
 def make_creatures(sand):
   from modules.creature import MultiCreature
   from numpy import array
-  # from modules.helpers import get_colors
 
-  # colors = get_colors('../colors/shimmering.gif')
-  # nc = len(colors)
-  # w = 0
-
-  pnum = 4
-  # for i, y in enumerate(linspace(EDGE, 1.0-EDGE, CREATURE_NUM)):
-  #   for j, x in enumerate(linspace(EDGE, 1.0-EDGE, CREATURE_NUM)):
-  # print(i,j)
-
-  pnum = 4+1
-  xy = array((0.5, 0.5), 'float')
-  # size = (1.0-2*EDGE)/CREATURE_NUM*0.1
-  size = 0.25
-  creature = MultiCreature(
-      pnum,
-      INUM,
-      STEPS,
-      xy,
-      size,
-      get_displaced_multi(NOISE, 100)
-      )
-
-  # w += 1
-  # rgba = colors[w%nc] + [0.0005]
-  # sand.set_rgba(rgba)
-
-  for l1 in creature.paths():
-    sand.paint_dots(l1)
+  for p in MultiCreature(
+      array((0.5, 0.5), 'float'),
+      PATH_SIZE,
+      PATH_NUM,
+      PATH_INTERPOLATE_NUM,
+      TWIG_NUM,
+      TWIG_INTERPOLATE_NUM,
+      TWIG_SIZE
+      ).paths(GRAINS):
+    sand.paint_dots(p)
 
 
 def main():

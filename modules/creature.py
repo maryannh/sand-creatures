@@ -41,30 +41,49 @@ class Creature(object):
 class MultiCreature(object):
   def __init__(
       self,
-      pnum,
-      inum,
-      steps,
       xy,
-      size,
-      path_function
+      path_size,
+      path_num,
+      path_interpolate_num,
+      twig_num,
+      twig_interpolate_num,
+      twig_size
       ):
+    from modules.helpers import random_points_in_circle
+    from numpy import dstack
     self.i = 0
-    self.pnum = pnum
-    self.inum = inum
+
     self.xy = xy
-    self.size = size
-    self.path_function = path_function
-    self.steps = steps
+    self.psize = path_size
+    self.pnum = path_num
+    self.pinum = path_interpolate_num
 
-    _paths =  path_function(self)
-    self._paths = []
+    self.tnum = twig_num
+    self.tinum = twig_interpolate_num
+    self.tsize = twig_size
 
-    for p in _paths:
-      self._paths.append(_rnd_interpolate(p, steps, ordered=True))
+    path = random_points_in_circle(
+        self.pnum,
+        self.xy[0],
+        self.xy[1],
+        self.psize
+        )
 
-  def paths(self):
-    from numpy import row_stack
-    for i in range(self.steps):
-      xy = row_stack([p[i,:] for p in self._paths])
-      yield _rnd_interpolate(xy, self.inum, ordered=True)
+    interpolated_twigs = []
+    for x in _rnd_interpolate(path, self.pinum, ordered=True):
+      twig = random_points_in_circle(
+          self.tnum,
+          x[0],
+          x[1],
+          self.tsize
+          )
+      interpolated_twigs.append(_rnd_interpolate(twig, self.tinum, ordered=True))
+
+    self.itwigs = dstack(interpolated_twigs)
+
+  def paths(self, grains, ordered=False):
+    from numpy import transpose
+    for r in range(self.tinum):
+      row = self.itwigs[r,:,:]
+      yield _rnd_interpolate(transpose(row), grains, ordered=ordered)
 
