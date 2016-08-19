@@ -77,7 +77,7 @@ class MultiCreature(object):
           x[1],
           self.tsize
           )
-      interpolated_twigs.append(_rnd_interpolate(twig, self.tinum, ordered=True))
+      interpolated_twigs.append(_rnd_interpolate(twig, self.tinum, ordered=False))
 
     self.itwigs = dstack(interpolated_twigs)
 
